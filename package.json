@@ -16,5 +16,8 @@
   "bugs": {
     "url": "https://github.com/RezoPL/kodilla-7.4/issues"
   },
-  "homepage": "https://github.com/RezoPL/kodilla-7.4#readme"
+  "homepage": "https://github.com/RezoPL/kodilla-7.4#readme",
+  "dependencies": {
+    "browser-sync": "^2.18.13"
+  }
 }
