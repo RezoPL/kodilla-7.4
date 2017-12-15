@@ -7,13 +7,15 @@
     "test": "npm run test:html",
     "test:html": "glob-run nu-html-checker *.html",
     "build": "npm run build:clean && npm run build:sass && npm run build:autoprefixer && npm run test",
-    "build:clean": "glob-run rifraf css/*.css",
-    "build:sass": "sass --sourcemap=none --update sass:css",
+    "build:clean": "glob-run rimraf css/*.css",
+    "build:sass": "node-sass sass -o css",
     "build:autoprefixer": "autoprefixer-cli css/style.css",
-    "watch": "parallelshell \"npm run watch:sass\" \"npm run watch:autoprefixer\" \"npm run watch:browsersync\" ",
-    "watch:sass": "sass --watch sass:css",
+    "build:sass-prefixer": "npm run build:sass && npm run build:autoprefixer",
+    "watch": "parallelshell \"npm run watch:sass-prefixer\" \"npm run watch:browsersync\" ",
+    "watch:sass": "node-sass --watch sass -o css",
     "watch:autoprefixer": "onchange -d 100 css/style.css -- autoprefixer-cli -o css/style.prefixed.css css/style.css",
-    "watch:browsersync": "glob-run browser-sync start --server --files \"css/*.css\" \"*.html\" "
+    "watch:browsersync": "glob-run browser-sync start --server --files \"css/*.css\" \"*.html\" ",
+    "watch:sass-prefixer": "onchange -d 100 sass/style.scss -- npm run build:sass-prefixer"
   },
   "repository": {
     "type": "git",
